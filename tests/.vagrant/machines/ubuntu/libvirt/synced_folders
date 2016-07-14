@@ -1,1 +1,0 @@
-{"rsync":{"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/ubuntu/openstack-heat/tests","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}
