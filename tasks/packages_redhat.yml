@@ -1,5 +1,10 @@
 ---
 
+- name: "openstack_heat.tasks.packages_redhat: Install python openstackclient"
+  yum:
+    name: python-openstackclient
+    state: present
+
 - name: "openstack_heat.tasks.packages_redhat: Install heat api and engine"
   yum:
     name: "{{ item }}"

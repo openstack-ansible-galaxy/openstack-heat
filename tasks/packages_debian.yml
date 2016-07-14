@@ -1,5 +1,10 @@
 ---
 
+- name: "openstack_heat.tasks.packages_debian: Install python openstackclient"
+  apt:
+    name: python-openstackclient
+    state: present
+
 - name: "openstack_heat.tasks.packages_debian: Install heat api and engine"
   apt:
     name: "{{ item }}"
