@@ -1,0 +1,10 @@
+---
+
+- name: "openstack_heat.tasks.packages_debian: Install heat api and engine"
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - heat-api
+    - heat-api-cfn
+    - heat-engine

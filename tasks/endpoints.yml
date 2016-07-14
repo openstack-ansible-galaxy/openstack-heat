@@ -1,0 +1,23 @@
+---
+
+- name: "openstack_heat.tasks.endpoints: Create heat services"
+  heat_service:
+    name: "{{ item.name }}"
+    service_type: "{{ item.service_type }}"
+    description: "{{ item.description|default('Not provided') }}"
+    endpoint: "{{ openstack_heat_keystone_admin_port_auth_url }}"
+    token: "{{ openstack_heat_keystone_admin_token }}"
+    state: "{{ item.state|default('present') }}"
+  with_items: "{{ openstack_heat_services }}"
+
+- name: "openstack_heat.tasks.endpoints: Create heat endpoints"
+  heat_endpoint:
+    service_name: "{{ item.service_name }}"
+    region: "{{ item.region|default(openstack_heat_default_region) }}"
+    public_url: "{{ item.public_url }}"
+    internal_url: "{{ item.internal_url }}"
+    admin_url: "{{ item.admin_url }}"
+    endpoint: "{{ openstack_heat_keystone_admin_port_auth_url }}"
+    token: "{{ openstack_heat_keystone_admin_token }}"
+    state: "{{ item.state|default('present') }}"
+  with_items: "{{ openstack_heat_endpoints }}"

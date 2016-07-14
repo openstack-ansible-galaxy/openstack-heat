@@ -1,0 +1,10 @@
+---
+
+- name: "openstack_heat.tasks.packages_redhat: Install heat api and engine"
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - openstack-heat-api
+    - openstack-heat-api-cfn
+    - openstack-heat-engine

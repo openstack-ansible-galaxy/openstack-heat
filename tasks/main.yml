@@ -1,0 +1,22 @@
+---
+
+- include: facts.yml
+
+- name: "openstack_heat.tasks.main: Install python openstackclient"
+  apt:
+    name: python-openstackclient
+    state: present
+
+- include: packages_redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: packages_debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: configuration.yml
+
+- include: database.yml
+
+- include: endpoints.yml
+
+- meta: flush_handlers

@@ -1,0 +1,67 @@
+# MariaDB
+mysql_root_password: 'mysqlpassword'
+mysql_bind_address: 0.0.0.0
+#mysql_character_set_server: 'utf8'
+#mysql_collation_server: 'utf8_general_ci'
+mysql_innodb_file_per_table: 'innodb_file_per_table'
+mysql_daemon: 'mariadb'
+mysql_socket: '/var/lib/mysql/mysql.sock'
+mysql_log_error: '/var/log/mariadb/mariadb.log'
+mysql_syslog_tag: 'mariadb'
+mysql_pid_file: '/var/run/mariadb/mariadb.pid'
+mysql_databases:
+  - name: 'keystone'
+    collation: 'utf8_general_ci'
+    encoding: 'utf8'
+  - name: 'heat'
+    collation: 'utf8_general_ci'
+    encoding: 'utf8'
+mysql_users:
+  - name: 'keystone'
+    password: 'keystonepassword'
+    priv: 'keystone.*:ALL'
+    host: '%'
+  - name: 'heat'
+    password: 'heatpassword'
+    priv: 'heat.*:ALL'
+    host: '%'
+
+# Keystone
+keystone_admin_bind_host: 'localhost'
+keystone_bind_host: 'localhost'
+keystone_admin_token: 'os token'
+keystone_database_url: 'mysql+pymysql://keystone:keystonepassword@localhost/keystone'
+keystone_tenants:
+  - { name: admin, description: 'Admin tenant' }
+  - { name: service, description: 'Service tenant' }
+  - { name: demo, description: 'Demo tenant'  }
+keystone_users:
+  - { name: admin, password: 'admin password', tenant: admin }
+  - { name: demo, password: 'demo password', tenant: demo }
+  - { name: heat, password: 'heat password', tenant: service }
+keystone_roles:
+  - { name: admin, user: admin, tenant: admin }
+  - { name: _member_, user: demo, tenant: demo  }
+  - { name: admin, user: heat, tenant: service  }
+keystone_services:
+  - { name: keystone, service_type: identity }
+  - { name: heat, service_type: orchestration }
+  - { name: heat-cfn, service_type: cloudformation }
+keystone_endpoints:
+  - service_name: keystone
+    public_url: 'http://localhost:5000/v2.0'
+    internal_url: 'http://localhost:5000/v2.0'
+    admin_url: 'http://localhost:35357/v2.0'
+  - service_name: heat
+    public_url: 'http://localhost:8004/v1/%\(tenant_id\)s'
+    internal_url: 'http://localhost:8004/v1/%\(tenant_id\)s'
+    admin_url: 'http://localhost:8004/v1/%\(tenant_id\)s'
+  - service_name: heat-cfn
+    public_url: 'http://localhost:8000/v1'
+    internal_url: 'http://localhost:8000/v1'
+    admin_url: 'http://localhost:8000/v1'
+
+# RabbitMQ
+rabbit_hostname: localhost
+rabbit_username: guest
+rabbit_password: guest

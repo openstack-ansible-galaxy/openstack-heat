@@ -1,0 +1,28 @@
+---
+
+# Heat
+openstack_heat_dbpass: heat_dbpass_default
+openstack_heat_hostname: localhost
+openstack_heat_pass: heat_pass_default
+openstack_heat_database_url: sqlite:////var/lib/heat/heat.db
+openstack_heat_metadata_server_url: http://localhost:8000
+openstack_heat_waitcondition_server_url: http://localhost:8000/v1/waitcondition
+
+# Keystone
+openstack_heat_keystone_admin_token: admin_token_default
+openstack_heat_keystone_dbpass: keystone_dbpass_default
+openstack_heat_keystone_admin_port: 35357
+openstack_heat_keystone_hostname: localhost
+openstack_heat_keystone_port: 5000
+openstack_heat_keystone_protocol: http
+openstack_heat_keystone_port_auth_url: >
+"{{ openstack_heat_keystone_protocol }}://{{ openstack_heat_keystone_hostname }}
+:{{ openstack_heat_keystone_port }}/v2.0"
+openstack_heat_keystone_admin_port_auth_url: >
+"{{ openstack_heat_keystone_protocol }}://{{ openstack_heat_keystone_hostname }}
+:{{ openstack_heat_keystone_admin_port }}/v2.0"
+
+# RabbitMQ
+openstack_heat_rabbit_hostname: localhost
+openstack_heat_rabbit_username: rabbit_username_default
+openstack_heat_rabbit_pass: rabbit_pass_default

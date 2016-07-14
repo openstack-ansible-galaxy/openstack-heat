@@ -1,0 +1,34 @@
+---
+
+- name: "openstack_heat.tasks.database: Create heat database"
+  heat_db:
+    name: heat
+    state: present
+    login_user: "{{ openstack_heat_mysql_admin_username }}"
+    login_password: "{{ openstack_heat_mysql_rootpass }}"
+  notify:
+    - "openstack_heat.handlers.main: Sync heat db"
+    - "openstack_heat.handlers.main: Restart heat services"
+
+- name: "openstack_heat.tasks.database: Create heat db user and grant access"
+  heat_user:
+    name: "{{ item.name }}"
+    host: "{{ item.host }}"
+    password: "{{ item.password }}"
+    priv: "{{ item.privs }}"
+    state: present
+    login_user: "{{ openstack_heat_mysql_admin_username }}"
+    login_password: "{{ openstack_heat_mysql_rootpass }}"
+    append_privs: yes
+  with_items:
+    - name: heat
+      host: localhost
+      password: "{{ openstack_heat_dbpass }}"
+      privs: heat.*:ALL
+    - name: heat
+      host: "%"
+      password: "{{ openstack_heat_dbpass }}"
+      privs: heat.*:ALL
+  notify:
+    - "openstack_heat.handlers.main: Sync heat db"
+    - "openstack_heat.handlers.main: Restart heat services"
