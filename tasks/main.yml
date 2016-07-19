@@ -10,8 +10,4 @@
 
 - include: configuration.yml
 
-- include: database.yml
-
-- include: endpoints.yml
-
 - meta: flush_handlers
