@@ -1,0 +1,15 @@
+---
+
+- name: "openstack_heat.tasks.facts: Set service facts for Debian family"
+  when: ansible_os_family == 'Debian'
+  set_fact: 
+    openstack_heat_api_service: "heat-api"
+    openstack_heat_api_cfn_service: "heat-api-cfn"
+    openstack_heat_engine_service: "heat-engine"
+
+- name: "openstack_heat.tasks.facts: Set service facts for RedHat family"
+  when: ansible_os_family == 'RedHat'
+  set_fact: 
+    openstack_heat_api_service: "openstack-heat-api"
+    openstack_heat_api_cfn_service: "openstack-heat-api-cfn"
+    openstack_heat_engine_service: "openstack-heat-engine"
