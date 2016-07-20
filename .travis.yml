@@ -1,0 +1,25 @@
+---
+language: python
+python: "2.7"
+
+before_install:
+  - sudo apt-get install python-software-properties
+  - sudo add-apt-repository -y cloud-archive:mitaka
+  - sudo apt-get update -qq
+
+install:
+  # Install pip, ansible and python-openstackclient..
+  - sudo apt-get install -y python-pip
+  - sudo pip install ansible
+  - sudo apt-get install -y python-openstackclient
+  # Add ansible.cfg to pick up roles path.
+  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+  # Install required ansible roles
+  - sudo ansible-galaxy install -r tests/requirements.yml
+
+script:
+# Check the role/playbook's syntax.
+  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+
+  # Run the role/playbook with ansible-playbook.
+  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
