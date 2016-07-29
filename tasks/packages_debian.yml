@@ -1,15 +1,15 @@
 ---
 
-- name: "openstack_heat.tasks.packages_debian: Install python openstackclient"
+- name: 'openstack_heat.tasks.packages_debian: Install python openstackclient'
   apt:
-    name: python-openstackclient
+    name: 'python-openstackclient'
     state: present
 
-- name: "openstack_heat.tasks.packages_debian: Install heat api and engine"
+- name: 'openstack_heat.tasks.packages_debian: Install heat api and engine'
   apt:
-    name: "{{ item }}"
+    name: '{{ item }}'
     state: present
   with_items:
-    - heat-api
-    - heat-api-cfn
-    - heat-engine
+    - 'heat-api'
+    - 'heat-api-cfn'
+    - 'heat-engine'

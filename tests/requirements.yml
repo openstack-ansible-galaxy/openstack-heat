@@ -1,12 +1,12 @@
 ---
 
-- name: openstack-keystone
-  src: https://github.com/openstack-ansible-galaxy/openstack-keystone
-  version: origin/features/mitaka
+- name: 'openstack-keystone'
+  src: 'https://github.com/openstack-ansible-galaxy/openstack-keystone'
+  version: 'origin/features/mitaka'
 
-- name: rabbitmq
-  src: https://github.com/abelboldu/ansible-rabbitmq
-  version: master
+- name: 'rabbitmq'
+  src: 'https://github.com/abelboldu/ansible-rabbitmq'
+  version: 'master'
 
-- name: mysql
-  src: geerlingguy.mysql
+- name: 'mysql'
+  src: 'geerlingguy.mysql'
