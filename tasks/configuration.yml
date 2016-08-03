@@ -1,93 +1,93 @@
 ---
 
-- name: "openstack_heat.tasks.configuration: Configure heat api"
+- name: 'openstack_heat.tasks.configuration: Configure heat api'
   ini_file:
-    dest: "/etc/heat/heat.conf"
-    section: "{{ item.section }}"
-    option: "{{ item.option }}"
-    value: "{{ item.value }}"
+    dest: '/etc/heat/heat.conf'
+    section: '{{ item.section }}'
+    option: '{{ item.option }}'
+    value: '{{ item.value }}'
   with_items:
-    - section: database
-      option: connection
-      value: "{{ openstack_heat_database_url }}"
-    
-    - section: DEFAULT
-      option: rpc_backend
-      value: rabbit
-    - section: oslo_messaging_rabbit
-      option: rabbit_host
-      value: "{{ openstack_heat_rabbit_hostname }}"
-    - section: oslo_messaging_rabbit
-      option: rabbit_userid
-      value: "{{ openstack_heat_rabbit_username }}"
-    - section: oslo_messaging_rabbit
-      option: rabbit_password
-      value: "{{ openstack_heat_rabbit_pass }}"
-    
-    - section: keystone_authtoken
-      option: auth_uri
-      value: "{{ keystone_port_auth_url }}"
-    - section: keystone_authtoken
-      option: auth_url
-      value: "{{ keystone_admin_port_auth_url }}"
-    - section: keystone_authtoken
-      option: auth_type
-      value: password
-    - section: keystone_authtoken
-      option: project_domain_name
-      value: default
-    - section: keystone_authtoken
-      option: user_domain_name
-      value: default
-    - section: keystone_authtoken
-      option: project_name
-      value: service
-    - section: keystone_authtoken
-      option: username
-      value: heat
-    - section: keystone_authtoken
-      option: password
-      value: "{{ openstack_heat_pass }}"
-    
-    - section: trustee
-      option: auth_plugin
-      value: password
-    - section: trustee
-      option: auth_url
-      value: "{{ keystone_admin_port_auth_url }}"
-    - section: trustee
-      option: username
-      value: heat
-    - section: trustee
-      option: password
-      value: "{{ openstack_heat_pass }}"
-    - section: trustee
-      option: user_domain_name
-      value: default
-    
-    - section: clients_keystone
-      option: auth_uri
-      value: "{{ keystone_admin_port_auth_url }}"
-    
-    - section: ec2authtoken
-      option: auth_uri
-      value: "{{ keystone_port_auth_url }}"
+    - section: 'database'
+      option: 'connection'
+      value: '{{ openstack_heat_database_url }}'
 
-    - section: DEFAULT
-      option: heat_metadata_server_url
-      value: "{{ openstack_heat_metadata_server_url }}"
-    - section: DEFAULT
-      option: heat_waitcondition_server_url
-      value: "{{ openstack_heat_waitcondition_server_url }}"
+    - section: 'DEFAULT'
+      option: 'rpc_backend'
+      value: 'rabbit'
+    - section: 'oslo_messaging_rabbit'
+      option: 'rabbit_host'
+      value: '{{ openstack_heat_rabbit_hostname }}'
+    - section: 'oslo_messaging_rabbit'
+      option: 'rabbit_userid'
+      value: '{{ openstack_heat_rabbit_username }}'
+    - section: 'oslo_messaging_rabbit'
+      option: 'rabbit_password'
+      value: '{{ openstack_heat_rabbit_pass }}'
 
-    - section: DEFAULT
-      option: stack_domain_admin
-      value: heat_domain_admin
-    - section: DEFAULT
-      option: stack_domain_admin_password
-      value: "{{ openstack_heat_pass }}"
-    - section: DEFAULT
-      option: stack_user_domain_name
-      value: heat
+    - section: 'keystone_authtoken'
+      option: 'auth_uri'
+      value: '{{ keystone_port_auth_url }}'
+    - section: 'keystone_authtoken'
+      option: 'auth_url'
+      value: '{{ keystone_admin_port_auth_url }}'
+    - section: 'keystone_authtoken'
+      option: 'auth_type'
+      value: 'password'
+    - section: 'keystone_authtoken'
+      option: 'project_domain_name'
+      value: 'default'
+    - section: 'keystone_authtoken'
+      option: 'user_domain_name'
+      value: 'default'
+    - section: 'keystone_authtoken'
+      option: 'project_name'
+      value: 'service'
+    - section: 'keystone_authtoken'
+      option: 'username'
+      value: 'heat'
+    - section: 'keystone_authtoken'
+      option: 'password'
+      value: '{{ openstack_heat_pass }}'
+
+    - section: 'trustee'
+      option: 'auth_plugin'
+      value: 'password'
+    - section: 'trustee'
+      option: 'auth_url'
+      value: '{{ keystone_admin_port_auth_url }}'
+    - section: 'trustee'
+      option: 'username'
+      value: 'heat'
+    - section: 'trustee'
+      option: 'password'
+      value: '{{ openstack_heat_pass }}'
+    - section: 'trustee'
+      option: 'user_domain_name'
+      value: 'default'
+
+    - section: 'clients_keystone'
+      option: 'auth_uri'
+      value: '{{ keystone_admin_port_auth_url }}'
+
+    - section: 'ec2authtoken'
+      option: 'auth_uri'
+      value: '{{ keystone_port_auth_url }}'
+
+    - section: 'DEFAULT'
+      option: 'heat_metadata_server_url'
+      value: '{{ openstack_heat_metadata_server_url }}'
+    - section: 'DEFAULT'
+      option: 'heat_waitcondition_server_url'
+      value: '{{ openstack_heat_waitcondition_server_url }}'
+
+    - section: 'DEFAULT'
+      option: 'stack_domain_admin'
+      value: 'heat_domain_admin'
+    - section: 'DEFAULT'
+      option: 'stack_domain_admin_password'
+      value: '{{ openstack_heat_pass }}'
+    - section: 'DEFAULT'
+      option: 'stack_user_domain_name'
+      value: 'heat'
   notify:
-    - "openstack_heat.handles.main: Restart heat services"
+    - 'openstack_heat.handlers.main: Restart heat services'
