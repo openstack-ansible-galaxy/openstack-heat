@@ -4,7 +4,6 @@
 
 - hosts: all
   become: True
-
   roles:
     - role: rabbitmq
       rabbitmq_plugins:
@@ -50,7 +49,6 @@
       mysql_bind_address: 0.0.0.0
       mysql_innodb_file_per_table: 'innodb_file_per_table'
       mysql_daemon: 'mariadb'
-      # mysql_socket: '/var/lib/mysql/mysql.sock'
       mysql_log_error: '/var/log/mariadb/mariadb.log'
       mysql_syslog_tag: 'mariadb'
       mysql_pid_file: '/var/run/mariadb/mariadb.pid'
@@ -78,11 +76,11 @@
 
     - role: openstack-keystone
       keystone_database_url: 'mysql+pymysql://keystone:keystonepassword@localhost/keystone'
-      keystone_run_sanity_check: yes
+      # keystone_run_sanity_check: yes
       keystone_admin_token: 'os token'
       keystone_admin_password: 'admin password'
-      keystone_admin_bind_host: localhost
-      keystone_bind_host: localhost
+      keystone_admin_bind_host: 'localhost'
+      keystone_bind_host: 'localhost'
       keystone_tenants:
         - {name: 'admin', description: 'Admin tenant'}
         - {name: 'service', description: 'Service tenant'}
@@ -91,14 +89,20 @@
         - {name: 'admin', password: '{{ keystone_admin_password }}', tenant: 'admin'}
         - {name: 'demo', password: 'demo password', tenant: 'demo'}
         - {name: 'heat', password: 'heat password', tenant: 'service'}
+        - {name: 'neutron', password: 'neutron password', tenant: 'service'}
+        - {name: 'nova', password: 'nova password', tenant: 'service'}
       keystone_roles:
         - {name: 'admin', user: 'admin', tenant: 'admin'}
         - {name: '_member_', user: 'demo', tenant: 'demo'}
         - {name: 'admin', user: 'heat', tenant: 'service'}
+        - {name: 'admin', user: 'neutron', tenant: 'service'}
+        - {name: 'admin', user: 'nova', tenant: 'service'}
       keystone_services:
         - {name: 'keystone', service_type: 'identity'}
         - {name: 'heat', service_type: 'orchestration'}
         - {name: 'heat-cfn', service_type: 'cloudformation'}
+        - {name: 'neutron', service_type: 'network'}
+        - {name: 'nova', service_type: 'compute'}
       keystone_endpoints:
         - service_name: keystone
           public_url: 'http://localhost:5000/v2.0'
@@ -112,6 +116,13 @@
           public_url: 'http://localhost:8000/v1'
           internal_url: 'http://localhost:8000/v1'
           admin_url: 'http://localhost:8000/v1'
+        - service_name: 'nova'
+          public_url: 'http://localhost:8774/v2.1/%(tenant_id)s'
+          internal_url: 'http://localhost:8774/v2.1/%(tenant_id)s'
+          admin_url: 'http://localhost:8774/v2.1/%(tenant_id)s'
 
     - role: openstack-heat
       openstack_heat_database_url: 'mysql+pymysql://heat:heatpassword@localhost/heat'
+      demo_pass: 'demo password'
+      rabbit_hostname: 'localhost'
+      openstack_heat_pass: 'heat password'

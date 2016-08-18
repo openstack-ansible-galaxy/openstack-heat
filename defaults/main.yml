@@ -12,10 +12,15 @@ keystone_admin_port: 35357
 keystone_hostname: 'localhost'
 keystone_port: 5000
 keystone_protocol: 'http'
-keystone_port_auth_url: '{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_port }}/v2.0'
-keystone_admin_port_auth_url: '{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_admin_port }}/v2.0'
+keystone_port_auth_url: '{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_port }}/v3'
+keystone_admin_port_auth_url: '{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_admin_port }}/v3'
 
 # RabbitMQ
 openstack_heat_rabbit_hostname: 'localhost'
 openstack_heat_rabbit_username: 'rabbit_username_default'
 openstack_heat_rabbit_pass: 'rabbit_pass_default'
+
+# Demo user for sanity  check
+demo_project: 'demo'
+demo_user: 'demo'
+demo_pass: 'heat_pass_default'

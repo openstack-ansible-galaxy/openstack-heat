@@ -1,0 +1,17 @@
+---
+
+- name: SANITY CHECK List service components
+  shell: >-
+    openstack
+    --os-auth-url '{{ keystone_port_auth_url }}'
+    --os-project-name '{{ demo_project }}'
+    --os-username '{{ demo_user }}'
+    --os-auth-type password
+    --os-password '{{ demo_pass }}'
+    --os-user-domain-id 'default'
+    --os-project-domain-id 'default'
+    orchestration service list
+  register: service_list_test
+  changed_when: service_list_test.rc != 0
+
+- debug: var=service_list_test.stdout_lines
