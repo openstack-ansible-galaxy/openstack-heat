@@ -1,0 +1,25 @@
+---
+
+- name: 'openstack_heat.tasks.services: Get current heat database version'
+  command: 'heat-manage db_version'
+  always_run: True
+  become: True
+  become_user: 'heat'
+  changed_when: openstack_heat_manage_db_version.stdout|int != openstack_heat_database_schema_version
+  register: openstack_heat_manage_db_version
+
+- name: 'openstack_heat.tasks.services: Migrate heat database to desired version'
+  command: 'heat-manage db_sync {{ heat_database_schema_version }}'
+  become: True
+  become_user: 'heat'
+  when: openstack_heat_manage_db_version|changed
+
+- name: 'openstack_heat.tasks.services: Start and enable heat services'
+  service:
+    enabled: True
+    name: '{{ item }}'
+    state: started
+  with_items:
+    - '{{ openstack_heat_api_service }}'
+    - '{{ openstack_heat_api_cfn_service }}'
+    - '{{ openstack_heat_engine_service }}'

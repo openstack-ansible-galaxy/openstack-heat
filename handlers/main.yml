@@ -1,12 +1,5 @@
 ---
 
-- name: 'openstack_heat.handlers.main: Sync heat db'
-  command: 'heat-manage db_sync'
-  become: True
-  become_user: 'heat'
-  notify:
-    - 'openstack_heat.handlers.main: Restart heat services'
-
 - name: 'openstack_heat.handlers.main: Restart heat services'
   service:
     name: '{{ item }}'
