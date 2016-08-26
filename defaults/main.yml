@@ -6,21 +6,21 @@ openstack_heat_database_url: 'sqlite:////var/lib/heat/heat.db'
 openstack_heat_database_schema_version: 27
 openstack_heat_metadata_server_url: 'http://localhost:8000'
 openstack_heat_waitcondition_server_url: 'http://localhost:8000/v1/waitcondition'
+openstack_heat_run_sanity_check: False
 
 # Keystone
-keystone_admin_port: 35357
-keystone_hostname: 'localhost'
-keystone_port: 5000
-keystone_protocol: 'http'
-keystone_port_auth_url: '{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_port }}/v3'
-keystone_admin_port_auth_url: '{{ keystone_protocol }}://{{ keystone_hostname }}:{{ keystone_admin_port }}/v3'
+openstack_heat_keystone_admin_port: 35357
+openstack_heat_keystone_hostname: 'localhost'
+openstack_heat_keystone_port: 5000
+openstack_heat_keystone_protocol: 'http'
 
 # RabbitMQ
 openstack_heat_rabbit_hostname: 'localhost'
 openstack_heat_rabbit_username: 'rabbit_username_default'
 openstack_heat_rabbit_pass: 'rabbit_pass_default'
+openstack_heat_rabbit_virtual_host: '/'
 
 # Demo user for sanity  check
-demo_project: 'demo'
-demo_user: 'demo'
-demo_pass: 'heat_pass_default'
+openstack_heat_demo_project: 'demo'
+openstack_heat_demo_user: 'demo'
+openstack_heat_demo_pass: 'heat_pass_default'
