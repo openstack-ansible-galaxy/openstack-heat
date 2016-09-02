@@ -10,3 +10,6 @@
 
 - include: configuration.yml
 - include: services.yml
+
+- include: sanitycheck.yml
+  when: openstack_heat_run_sanity_check

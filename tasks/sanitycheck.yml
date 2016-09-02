@@ -1,0 +1,18 @@
+---
+
+- name: SANITY CHECK List service components
+  shell: >-
+    openstack
+    --os-identity-api-version 3
+    --os-auth-url {{ openstack_heat_keystone_protocol }}://{{ openstack_heat_keystone_hostname }}:{{ openstack_heat_keystone_port }}/v3
+    --os-project-name '{{ openstack_heat_demo_project }}'
+    --os-username '{{ openstack_heat_demo_user }}'
+    --os-auth-type password
+    --os-password '{{ openstack_heat_demo_pass }}'
+    --os-user-domain-id 'default'
+    --os-project-domain-id 'default'
+    orchestration service list
+  register: service_list_test
+  changed_when: service_list_test.rc != 0
+
+- debug: var=service_list_test.stdout_lines
