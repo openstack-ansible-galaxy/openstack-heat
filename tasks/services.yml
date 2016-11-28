@@ -1,15 +1,25 @@
 ---
 
+- name: 'openstack_heat.tasks.services: Get latest Heat database version'
+  shell: >-
+    ls {{ openstack_heat_database_migration_repository }}
+    | grep '^[0-9]\{3\}_' | sort -n | tail -n 1 | awk -F '_' '{ print $1; }'
+  always_run: True
+  changed_when: False
+  register: openstack_heat_database_schema_version
+
 - name: 'openstack_heat.tasks.services: Get current heat database version'
   command: 'heat-manage db_version'
   always_run: True
   become: True
   become_user: 'heat'
-  changed_when: openstack_heat_manage_db_version.stdout|int != openstack_heat_database_schema_version
+  changed_when: >-
+    openstack_heat_manage_db_version.stdout|int
+    != openstack_heat_database_schema_version.stdout|int
   register: openstack_heat_manage_db_version
 
 - name: 'openstack_heat.tasks.services: Migrate heat database to desired version'
-  command: 'heat-manage db_sync {{ heat_database_schema_version }}'
+  command: 'heat-manage db_sync {{ openstack_heat_database_schema_version.stdout }}'
   become: True
   become_user: 'heat'
   when: openstack_heat_manage_db_version|changed

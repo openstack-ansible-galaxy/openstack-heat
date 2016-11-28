@@ -3,7 +3,6 @@
 # Heat
 openstack_heat_pass: 'heat_pass_default'
 openstack_heat_database_url: 'sqlite:////var/lib/heat/heat.db'
-openstack_heat_database_schema_version: 27
 openstack_heat_metadata_server_url: 'http://localhost:8000'
 openstack_heat_waitcondition_server_url: 'http://localhost:8000/v1/waitcondition'
 openstack_heat_run_sanity_check: False
